@@ -9,6 +9,14 @@ fun readInput(name: String) = File("src", "$name.txt")
     .readLines()
 
 /**
+ * Reads input separated by empty line
+ */
+fun readGroupedInput(name: String) = File("src", "$name.txt").readText().split("\n\n")
+
+fun List<String>.splitLinesToInts() = this.map { it.split("\n").toListOfInts() }
+
+fun List<String>.toListOfInts() = this.map { it.toInt() }
+/**
  * Converts string to md5 hash.
  */
 fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray()))
