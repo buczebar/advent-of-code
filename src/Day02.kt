@@ -1,19 +1,9 @@
-import java.lang.IllegalArgumentException
-
 fun main() {
     fun gameResult(yourMove: HandShape, opponentMove: HandShape) =
         when (yourMove) {
-            opponentMove.greater() -> {
-                GameResult.WIN
-            }
-
-            opponentMove.lower() -> {
-                GameResult.LOSS
-            }
-
-            else -> {
-                GameResult.DRAW
-            }
+            opponentMove.greater() -> GameResult.WIN
+            opponentMove.lower() -> GameResult.LOSS
+            else -> GameResult.DRAW
         }
 
     fun part1(input: List<Pair<HandShape, HandShape>>): Int {
@@ -22,14 +12,17 @@ fun main() {
         }
     }
 
+    fun getMoveForExpectedResult(opponentMove: HandShape, expectedResult: GameResult) =
+        when (expectedResult) {
+            GameResult.LOSS -> opponentMove.lower()
+            GameResult.DRAW -> opponentMove
+            GameResult.WIN -> opponentMove.greater()
+        }
+
     fun part2(input: List<Pair<HandShape, GameResult>>) =
         input.sumOf {
             val (opponentMove, gameResult) = it
-            gameResult.score + when (gameResult) {
-                GameResult.LOSS -> opponentMove.lower().score
-                GameResult.DRAW -> opponentMove.score
-                GameResult.WIN -> opponentMove.greater().score
-            }
+            gameResult.score + getMoveForExpectedResult(opponentMove, gameResult).score
         }
 
     val testInputPart1 = parseInput("Day02_test", String::toHandShape, String::toHandShape)
@@ -45,10 +38,10 @@ fun main() {
     println(part2(inputForPart2))
 }
 
-private fun <T, U> parseInput(name: String, firstArgumentParser: (String) -> T, secondArgParser: (String) -> U) =
+private fun <T, U> parseInput(name: String, firstArgParser: (String) -> T, secondArgParser: (String) -> U) =
     readInput(name).map { round ->
         round.split(" ").let {
-            Pair(firstArgumentParser.invoke(it[0]), secondArgParser.invoke(it[1]))
+            Pair(firstArgParser.invoke(it[0]), secondArgParser.invoke(it[1]))
         }
     }
 
