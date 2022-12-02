@@ -6,9 +6,11 @@ fun main() {
             opponentMove.greater() -> {
                 GameResult.WIN
             }
+
             opponentMove.lower() -> {
                 GameResult.LOSS
             }
+
             else -> {
                 GameResult.DRAW
             }
@@ -30,32 +32,26 @@ fun main() {
             }
         }
 
-    val testInputPart1 = parseHandShapes("Day02_test")
+    val testInputPart1 = parseInput("Day02_test", String::toHandShape, String::toHandShape)
     check(part1(testInputPart1) == 15)
 
-    val testInputPart2 = parseMoveWithExpectedGameResults("Day02_test")
+    val testInputPart2 = parseInput("Day02_test", String::toHandShape, String::toGameResult)
     check(part2(testInputPart2) == 12)
 
-    val inputForPart1 = parseHandShapes("Day02")
+    val inputForPart1 = parseInput("Day02", String::toHandShape, String::toHandShape)
     println(part1(inputForPart1))
 
-    val inputForPart2 = parseMoveWithExpectedGameResults("Day02")
+    val inputForPart2 = parseInput("Day02", String::toHandShape, String::toGameResult)
     println(part2(inputForPart2))
 }
 
-private fun parseHandShapes(name: String) =
+private fun <T, U> parseInput(name: String, firstArgumentParser: (String) -> T, secondArgParser: (String) -> U) =
     readInput(name).map { round ->
         round.split(" ").let {
-            Pair(it[0].toHandShape(), it[1].toHandShape())
+            Pair(firstArgumentParser.invoke(it[0]), secondArgParser.invoke(it[1]))
         }
     }
 
-private fun parseMoveWithExpectedGameResults(name: String) =
-    readInput(name).map { round ->
-        round.split(" ").let {
-            Pair(it[0].toHandShape(), it[1].toGameResult())
-        }
-    }
 private fun String.toHandShape(): HandShape {
     return when (this) {
         "A", "X" -> HandShape.ROCK
@@ -66,7 +62,7 @@ private fun String.toHandShape(): HandShape {
 }
 
 private fun String.toGameResult(): GameResult {
-    return when(this) {
+    return when (this) {
         "X" -> GameResult.LOSS
         "Y" -> GameResult.DRAW
         "Z" -> GameResult.WIN
