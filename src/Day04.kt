@@ -1,21 +1,20 @@
 typealias SectionRange = Pair<Int, Int>
 
 fun main() {
-    fun SectionRange.contains(sectionRange: SectionRange): Boolean {
-        return this.first >= sectionRange.first && this.second <= sectionRange.second
+    infix fun SectionRange.contains(range: SectionRange): Boolean {
+        return first <= range.first && this.second >= range.second
     }
 
-    fun SectionRange.overlap(range: SectionRange): Boolean {
-        return this.first >= range.first && this.first <= range.second ||
-                this.first <= range.first && this.second >= range.first
+    infix fun SectionRange.overlap(range: SectionRange): Boolean {
+        return first <= range.second && range.first <= second
     }
 
     fun part1(input: List<Pair<SectionRange, SectionRange>>) =
-        input.count { it.first.contains(it.second) || it.second.contains(it.first) }
+        input.count { it.first contains it.second || it.second contains it.first }
 
 
     fun part2(input: List<Pair<SectionRange, SectionRange>>) =
-        input.count { it.first.overlap(it.second) || it.second.overlap(it.first) }
+        input.count { it.first overlap it.second || it.second overlap it.first }
 
     fun parseInput(name: String): List<Pair<SectionRange, SectionRange>> {
         fun parseSectionRange(input: String) =
