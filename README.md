@@ -11,6 +11,7 @@ using [Kotlin](https://kotlinlang.org) language.
 | 02  | [Rock Paper Scissors](src/Day02.kt)     |   🌟   |   🌟   |
 | 03  | [Rucksack Reorganization](src/Day03.kt) |   🌟   |   🌟   |
 | 04  | [Camp Cleanup](src/Day04.kt)            |   🌟   |   🌟   |
+| 05  | [Supply Stacks](src/Day05.kt)           |   🌟   |   🌟   |
 
 [^aoc]: [Advent of Code](https://adventofcode.com) – an annual event in December since 2015.
 Every year since then, with the first day of December, a programming puzzles contest is published every day for
