@@ -1,7 +1,5 @@
 import java.io.File
 import java.lang.IllegalArgumentException
-import java.math.BigInteger
-import java.security.MessageDigest
 
 /**
  * Reads lines from the given input txt file.
@@ -18,6 +16,8 @@ fun List<String>.splitLinesToInts() = this.map { it.split("\n").toListOfInts() }
 
 fun List<String>.toListOfInts() = this.map { it.toInt() }
 
+fun<T> List<T>.allDistinct() = this.distinct().size == this.size
+
 fun <T> List<T>.pair(): Pair<T, T> =
     if (size == 2) Pair(this[0], this[1]) else throw IllegalArgumentException("Input array has wrong size")
 
@@ -33,10 +33,3 @@ fun <T> List<List<T>>.transpose(): List<List<T>> {
     }
     return resultList
 }
-
-/**
- * Converts string to md5 hash.
- */
-fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray()))
-    .toString(16)
-    .padStart(32, '0')
