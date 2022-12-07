@@ -13,6 +13,7 @@ using [Kotlin](https://kotlinlang.org) language.
 | 04  | [Camp Cleanup](src/Day04.kt)            |   🌟   |   🌟   |
 | 05  | [Supply Stacks](src/Day05.kt)           |   🌟   |   🌟   |
 | 06  | [Tuning Trouble](src/Day06.kt)          |   🌟   |   🌟   |
+| 07  | [No Space Left On Device](src/Day07.kt) |   🌟   |   🌟   |
 
 [^aoc]: [Advent of Code](https://adventofcode.com) – an annual event in December since 2015.
 Every year since then, with the first day of December, a programming puzzles contest is published every day for
