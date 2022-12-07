@@ -22,6 +22,7 @@ fun <T> List<T>.pair(): Pair<T, T> =
     if (size == 2) Pair(this[0], this[1]) else throw IllegalArgumentException("Input array has wrong size")
 
 fun String.remove(regex: Regex) = replace(regex, "")
+fun String.splitWords() = this.split(" ")
 
 fun <T> List<List<T>>.transpose(): List<List<T>> {
     val desiredSize = maxOf { it.size }

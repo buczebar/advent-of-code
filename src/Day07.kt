@@ -26,24 +26,32 @@ fun main() {
 private fun buildFileTree(consoleLog: List<String>): TreeNode {
     val rootNode = DirNode("/", null)
     var currentNode = rootNode as TreeNode
-    for (line in consoleLog) {
-        if ("\\$ cd [\\w/]+".toRegex().matches(line)) {
-            val name = "\\$ cd ([\\w/]+)".toRegex().find(line)!!.groups[1]?.value ?: "/"
-            currentNode = currentNode.getChildByName(name)
-        } else if (line.startsWith("dir")) {
-            val (_, name) = "(\\w+) (\\w+)".toRegex().find(line)!!.destructured
-            currentNode.addChild(DirNode(name))
-        } else if ("\\d+ \\w+.*\\w*".toRegex().matches(line)) {
-            val matches = "(\\d+) (\\w+.*\\w*)".toRegex().find(line)?.groups
-            if (matches?.size == 3) {
-                currentNode.addChild(FileNode(matches[2]?.value!!, matches[1]?.value!!.toLong()))
+    consoleLog.forEach { line ->
+        when {
+            line.isCdCommand() -> {
+                val (_, _, name) = line.splitWords()
+                currentNode = when (name) {
+                    ".." -> currentNode.parent ?: return@forEach
+                    "/" -> rootNode
+                    else -> currentNode.getChildByName(name)
+                }
             }
-        } else if (line == "$ cd ..") {
-            currentNode = currentNode.parent ?: break
+            line.isDir() -> {
+                val (_, name) = line.splitWords()
+                currentNode.addChild(DirNode(name))
+            }
+            line.isFile() -> {
+                val (size, name) = line.splitWords()
+                currentNode.addChild(FileNode(name, size.toLong()))
+            }
         }
     }
     return rootNode
 }
+
+private fun String.isDir() = startsWith("dir")
+private fun String.isFile() = "\\d+ [\\w.]+".toRegex().matches(this)
+private fun String.isCdCommand() = startsWith("$ cd")
 
 private abstract class TreeNode(private val name: String, var parent: TreeNode?, val children: MutableList<TreeNode>?) {
     open val totalSize: Long
