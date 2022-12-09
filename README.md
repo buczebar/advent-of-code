@@ -15,6 +15,7 @@ using [Kotlin](https://kotlinlang.org) language.
 | 06  | [Tuning Trouble](src/Day06.kt)          |   🌟   |   🌟   |
 | 07  | [No Space Left On Device](src/Day07.kt) |   🌟   |   🌟   |
 | 08  | [Treetop Tree House](src/Day08.kt)      |   🌟   |   🌟   |
+| 09  | [Rope Bridge](src/Day09.kt)             |   🌟   |   🌟   |
 
 [^aoc]: [Advent of Code](https://adventofcode.com) – an annual event in December since 2015.
 Every year since then, with the first day of December, a programming puzzles contest is published every day for

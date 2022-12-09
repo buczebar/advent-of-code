@@ -34,3 +34,4 @@ fun <T> List<List<T>>.transpose(): List<List<T>> {
     }
     return resultList
 }
+fun<T> List<T>.head(): T = first()
