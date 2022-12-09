@@ -42,7 +42,6 @@ fun main() {
                 }
             }
         }
-
         return knotsPositions
     }
 
@@ -59,7 +58,6 @@ fun main() {
     check(part1(testInput) == 13)
     check(part2(testInput) == 1)
     check(part2(testInputPart2) == 36)
-
 
     val input = parseInput("Day09")
     println(part1(input))
