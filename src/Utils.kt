@@ -41,3 +41,17 @@ fun <T> List<T>.dropHead() = drop(1)
 fun String.getAllInts() = "(-?\\d+)".toRegex().findAll(this).map { it.value.toInt() }.toList()
 
 fun List<Long>.factorial() = reduce {acc, it -> acc * it }
+
+typealias Position = Pair<Int, Int>
+operator fun Position.plus(other: Position) = Position(x + other.x, y + other.y)
+operator fun Position.minus(other: Position) = Position(x - other.x, y - other.y)
+val Position.x: Int
+    get() = first
+val Position.y: Int
+    get() = second
+
+fun<T> MutableList<T>.popHead(): T {
+    val head = head()
+    removeFirst()
+    return head
+}
