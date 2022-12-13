@@ -1,15 +1,13 @@
 fun main() {
     fun parseArray(arrayText: String): List<Any> {
         fun nodeToList(node: Node): List<Any> {
-            val resultList = mutableListOf<Any>()
-            node.children.forEach { child ->
+            return node.children.map { child ->
                 if (child is Leaf) {
-                    resultList.add(child.value ?: emptyList<Any>())
+                    child.value ?: emptyList<Any>()
                 } else {
-                    resultList.add(nodeToList(child))
+                    nodeToList(child)
                 }
             }
-            return resultList
         }
 
         fun addLeaf(builder: StringBuilder, node: Node?) {
