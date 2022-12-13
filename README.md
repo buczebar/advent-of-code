@@ -19,6 +19,7 @@ using [Kotlin](https://kotlinlang.org) language.
 | 10  | [Cathode-Ray Tube](src/Day10.kt)        |   🌟   |   🌟   |
 | 11  | [Monkey in the Middle](src/Day11.kt)    |   🌟   |   🌟   |
 | 12  | [Hill Climbing Algorithm](src/Day12.kt) |   🌟   |   🌟   |
+| 13  | [Distress Signal](src/Day13.kt)         |   🌟   |   🌟   |
 
 [^aoc]: [Advent of Code](https://adventofcode.com) – an annual event in December since 2015.
 Every year since then, with the first day of December, a programming puzzles contest is published every day for

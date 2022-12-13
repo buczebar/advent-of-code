@@ -1,5 +1,7 @@
 import java.io.File
 import java.lang.IllegalArgumentException
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
  * Reads lines from the given input txt file.
@@ -41,6 +43,7 @@ fun <T> List<T>.dropHead() = drop(1)
 fun String.getAllInts() = "(-?\\d+)".toRegex().findAll(this).map { it.value.toInt() }.toList()
 
 fun List<Long>.factorial() = reduce {acc, it -> acc * it }
+fun List<Int>.factorial() = reduce {acc, it -> acc * it }
 
 typealias Position = Pair<Int, Int>
 operator fun Position.plus(other: Position) = Position(x + other.x, y + other.y)
