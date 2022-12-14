@@ -49,23 +49,25 @@ fun main() {
             val directionsToCheck = listOf(Position(0, 1), Position(-1, 1), Position(1, 1))
             for (direction in directionsToCheck) {
                 val newPosition = position + direction
-                if (fieldMatrix[newPosition.y][newPosition.x] == FieldType.AIR) {
+                if (fieldMatrix[newPosition.depth][newPosition.x] == FieldType.AIR) {
                     return newPosition
                 }
             }
             return null
         }
+
         val maxDepth = fieldMatrix.size - 1
         val sandStartPosition = Position(500, 0)
         var position = sandStartPosition
 
-        while (position.depth < maxDepth && fieldMatrix[sandStartPosition.y][sandStartPosition.x] == FieldType.AIR) {
-            val newPosition = nextPosition(position)
-            if (newPosition == null) {
-                fieldMatrix[position.y][position.x] = FieldType.SAND
-                position = sandStartPosition
-            } else {
-                position = newPosition
+        while (position.depth < maxDepth && fieldMatrix[sandStartPosition.depth][sandStartPosition.x] == FieldType.AIR) {
+            with(nextPosition(position)) {
+                if (this == null) {
+                    fieldMatrix[position.depth][position.x] = FieldType.SAND
+                    position = sandStartPosition
+                } else {
+                    position = this
+                }
             }
         }
         return fieldMatrix.flatten().count { it == FieldType.SAND }
