@@ -89,4 +89,3 @@ private class DirNode(name: String, parent: TreeNode? = null, children: MutableL
 
 private class FileNode(name: String, override val totalSize: Long, parent: DirNode? = null) :
     TreeNode(name, parent, null)
-
