@@ -1,7 +1,6 @@
 import java.io.File
 import java.lang.IllegalArgumentException
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+import kotlin.math.abs
 
 /**
  * Reads lines from the given input txt file.
@@ -42,10 +41,11 @@ fun <T> List<T>.dropHead() = drop(1)
 
 fun String.getAllInts() = "(-?\\d+)".toRegex().findAll(this).map { it.value.toInt() }.toList()
 
-fun List<Long>.factorial() = reduce {acc, it -> acc * it }
-fun List<Int>.factorial() = reduce {acc, it -> acc * it }
+fun List<Long>.factorial() = reduce { acc, it -> acc * it }
+fun List<Int>.factorial() = reduce { acc, it -> acc * it }
 
 typealias Position = Pair<Int, Int>
+
 operator fun Position.plus(other: Position) = Position(x + other.x, y + other.y)
 operator fun Position.minus(other: Position) = Position(x - other.x, y - other.y)
 val Position.x: Int
@@ -53,8 +53,17 @@ val Position.x: Int
 val Position.y: Int
     get() = second
 
-fun<T> MutableList<T>.popHead(): T {
+fun Position.manhattanDistanceTo(other: Position) = abs(x - other.x) + abs(y - other.y)
+fun <T> MutableList<T>.popHead(): T {
     val head = head()
     removeFirst()
     return head
+}
+
+fun IntRange.limitValuesInRange(valueRange: IntRange): IntRange {
+    return first.coerceAtLeast(valueRange.first)..last.coerceAtMost(valueRange.last)
+}
+
+fun List<Int>.valueRange(): IntRange {
+    return min()..max()
 }
