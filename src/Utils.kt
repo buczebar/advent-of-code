@@ -41,6 +41,8 @@ fun <T> List<T>.dropHead() = drop(1)
 
 fun String.getAllInts() = "(-?\\d+)".toRegex().findAll(this).map { it.value.toInt() }.toList()
 
+fun String.getAllByRegex(regex: Regex) = regex.findAll(this).map { it.value }.toList()
+
 fun List<Long>.factorial() = reduce { acc, it -> acc * it }
 fun List<Int>.factorial() = reduce { acc, it -> acc * it }
 
